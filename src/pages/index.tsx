@@ -14,8 +14,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <AuthBar status={session.status} />
       <main className="container mx-auto flex flex-col items-center justify-center h-screen p-4">
-        <AuthBar status={session.status} />
         <h1 className="text-5xl md:text-[5rem] leading-normal font-extrabold text-gray-700">
           Welcome to <span className="text-purple-300">Linker</span>{" "}
           {session.data?.user?.name}
