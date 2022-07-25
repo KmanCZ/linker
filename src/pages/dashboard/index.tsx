@@ -3,6 +3,7 @@ import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import AuthBar from "@components/AuthBar";
 import NewLinkerButton from "@components/NewLinkerButton";
+import LinkerBoard from "@components/LinkerBoard";
 
 const Dashboard: NextPage = () => {
   const session = useSession();
@@ -19,9 +20,7 @@ const Dashboard: NextPage = () => {
         <h1 className=" text-center mt-5 font-extrabold text-5xl text-blue-400">
           Dashboard
         </h1>
-        <section className="h-[50rem] rounded-xl m-5 bg-slate-50">
-          <NewLinkerButton />
-        </section>
+        <LinkerBoard />
       </main>
     </>
   );
