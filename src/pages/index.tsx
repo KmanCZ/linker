@@ -11,6 +11,7 @@ type TechnologyCardProps = {
 
 const Home: NextPage = () => {
   const hello = trpc.useQuery(["example.hello", { text: "Github" }]);
+  const auth = trpc.useQuery(["auth.getSecretMessage"]);
 
   return (
     <>
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
         </h1>
         <TestingForm />
         <MessagesList />
+        <p>{auth.data}</p>
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
           {hello.data ? <p>{hello.data.greeting}</p> : <p>Loading..</p>}
         </div>

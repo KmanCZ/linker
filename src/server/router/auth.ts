@@ -17,6 +17,6 @@ export const authRouter = createRouter()
   })
   .query("getSecretMessage", {
     async resolve({ ctx }) {
-      return "You are logged in and can see this secret message!";
+      return `You are logged in and can see this secret message! ${ctx.session?.user?.name}`;
     },
   });
