@@ -10,11 +10,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model TestingMessage {
- id  String  @id @default(auto()) @map("_id") @db.ObjectId
- message String
-}
-
 // Necessary for Next auth
 model Account {
     id  String  @id @default(auto()) @map("_id") @db.ObjectId
