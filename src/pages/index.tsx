@@ -1,7 +1,8 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSidePropsContext } from "next";
 import { FormEvent, useState } from "react";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
+import AuthBar from "../components/AuthBar";
 
 type TechnologyCardProps = {
   name: string;
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="container mx-auto flex flex-col items-center justify-center h-screen p-4">
+        <AuthBar />
         <h1 className="text-5xl md:text-[5rem] leading-normal font-extrabold text-gray-700">
           Create <span className="text-purple-300">T3</span> App
         </h1>
@@ -36,7 +38,7 @@ const Home: NextPage = () => {
   );
 };
 
-function MessagesList() {
+export function MessagesList() {
   const { data } = trpc.useQuery(["example.getAllMessages"]);
   return (
     <ul>
