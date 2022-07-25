@@ -9,7 +9,9 @@ export default function AuthBar({
     return (
       <div className="sticky top-0">
         <section className="flex flex-row justify-between items-center px-2 bg-slate-800">
-          <span className="text-white font-bold text-2xl m-2 p-2">Linker</span>
+          <Link href="/">
+            <a className="text-white font-bold text-2xl m-2 p-2">Linker</a>
+          </Link>
           <div>
             <Link href="/dashboard">
               <a className="bg-blue-500 text-white text-lg p-2 m-2 rounded-xl">
@@ -30,7 +32,9 @@ export default function AuthBar({
   return (
     <div className="sticky top-0">
       <section className="flex flex-row justify-between items-center px-2 bg-slate-800">
-        <span className="text-white font-bold text-2xl m-2 p-2">Linker</span>
+        <Link href="/">
+          <a className="text-white font-bold text-2xl m-2 p-2">Linker</a>
+        </Link>
 
         <Link href="/api/auth/signin">
           <a className="bg-blue-500 text-white text-lg p-2 rounded-xl">
