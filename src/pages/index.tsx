@@ -1,6 +1,6 @@
-import type { GetServerSidePropsContext, NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
-import AuthBar from "../components/AuthBar";
+import AuthBar from "@components/AuthBar";
 import { useSession } from "next-auth/react";
 
 const Home: NextPage = () => {

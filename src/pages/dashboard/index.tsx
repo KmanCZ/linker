@@ -1,8 +1,8 @@
 import type { NextPage, GetServerSidePropsContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
-import AuthBar from "../../components/AuthBar";
-import NewLinkerButton from "../../components/NewLinkerButton";
+import AuthBar from "@components/AuthBar";
+import NewLinkerButton from "@components/NewLinkerButton";
 
 const Dashboard: NextPage = () => {
   const session = useSession();
