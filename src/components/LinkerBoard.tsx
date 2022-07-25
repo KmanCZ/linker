@@ -13,9 +13,6 @@ export default function LinkerBoard() {
       <LinkerCard />
       <LinkerCard />
       <LinkerCard />
-      <LinkerCard />
-      <LinkerCard />
-      <LinkerCard />
       <NewLinkerButton />
     </section>
   );
