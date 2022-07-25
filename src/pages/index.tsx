@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSidePropsContext, NextPage } from "next";
 import Head from "next/head";
 import AuthBar from "../components/AuthBar";
 import { useSession } from "next-auth/react";
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="container mx-auto flex flex-col items-center justify-center h-screen p-4">
-        <AuthBar />
+        <AuthBar status={session.status} />
         <h1 className="text-5xl md:text-[5rem] leading-normal font-extrabold text-gray-700">
           Welcome to <span className="text-purple-300">Linker</span>{" "}
           {session.data?.user?.name}

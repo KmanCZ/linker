@@ -1,9 +1,11 @@
 import type { NextPage, GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import AuthBar from "../../components/AuthBar";
 
 const Dashboard: NextPage = () => {
+  const session = useSession();
+
   return (
     <>
       <Head>
@@ -11,7 +13,7 @@ const Dashboard: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AuthBar />
+      <AuthBar status={session.status} />
       <h1>Dashboard</h1>
     </>
   );

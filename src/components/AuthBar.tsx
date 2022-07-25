@@ -1,18 +1,11 @@
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-export default function AuthBar() {
-  const session = useSession();
-
-  if (session.status === "loading") {
-    return (
-      <section className="absolute top-3 right-3">
-        <p>Loading...</p>
-      </section>
-    );
-  }
-
-  if (session.status === "authenticated") {
+export default function AuthBar({
+  status,
+}: {
+  status: "loading" | "authenticated" | "unauthenticated";
+}) {
+  if (status === "authenticated") {
     return (
       <section className="absolute top-3 right-3">
         <Link href="/dashboard">
