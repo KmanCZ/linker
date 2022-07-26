@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { createRouter } from "./context";
 import { z } from "zod";
+import slug from "slug";
 
 export const linkerRouter = createRouter()
   .middleware(async ({ ctx, next }) => {
@@ -18,7 +19,11 @@ export const linkerRouter = createRouter()
     }),
     resolve: async ({ ctx, input }) => {
       const newLinker = await ctx.prisma.linker.create({
-        data: { name: input.name, description: input.description },
+        data: {
+          name: input.name,
+          description: input.description,
+          slug: slug(input.name),
+        },
       });
       return newLinker;
     },

@@ -13,6 +13,7 @@ export default function LinkerBoard() {
             key={linker.id}
             name={linker.name}
             description={linker.description}
+            slug={linker.slug}
           />
         ))
       ) : (

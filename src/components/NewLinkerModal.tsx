@@ -2,14 +2,15 @@ import { useAtom } from "jotai";
 import { modalAtom } from "../pages/dashboard/index";
 import { FormEvent, useState } from "react";
 import { trpc } from "utils/trpc";
+import Router from "next/router";
 
 export default function NewLinkerModal() {
   const [modal, setModal] = useAtom(modalAtom);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const { mutate } = trpc.useMutation("linker.create", {
-    onSuccess: () => {
-      console.log("done");
+    onSuccess: ({ slug }) => {
+      Router.push(slug);
     },
   });
 
