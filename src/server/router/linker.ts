@@ -22,4 +22,10 @@ export const linkerRouter = createRouter()
       });
       return newLinker;
     },
+  })
+  .query("getAllLinkers", {
+    resolve: async ({ ctx }) => {
+      const Linkers = await ctx.prisma.linker.findMany({});
+      return Linkers;
+    },
   });
