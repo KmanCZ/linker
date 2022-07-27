@@ -9,6 +9,9 @@ import { faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import LinksList from "@components/LinksList";
 import LinksEditor from "@components/LinksEditor";
+import { atom, useAtom } from "jotai";
+
+export const modalAtom = atom<boolean>(false);
 
 const LinkerPage = ({
   linker,
@@ -18,6 +21,7 @@ const LinkerPage = ({
   links: LinkModel[];
 }) => {
   const session = useSession();
+  const [modal] = useAtom(modalAtom);
 
   return (
     <>
@@ -27,41 +31,50 @@ const LinkerPage = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {session.data?.user?.id === linker.userId && (
-        <AuthBar status={session.status} />
-      )}
-      <div className="bg-orange-300 min-h-screen h-full w-screen flex flex-col">
-        <main className="pt-20 px-[30rem]">
-          <div className="bg-gray-400 bg-opacity-50 backdrop-blur-md rounded-lg p-5">
-            <div className="h-16 w-16 absolute -top-7 left-1/2 -translate-x-1/2 rounded-full bg-black"></div>
-            <h1 className="text-center text-4xl font-semibold my-5">
-              {linker.name}
-            </h1>
-            {/* Links */}
-            <LinksList links={links} />
-            {/* Social Media */}
-            <ul className="flex justify-center gap-3">
-              <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
-                <a href="https://instagram.com">
-                  <FontAwesomeIcon icon={faInstagram} />
-                </a>
-              </li>
-              <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
-                <a href="https://twitter.com">
-                  <FontAwesomeIcon icon={faTwitter} />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </main>
-        <footer className="mt-auto">
-          <Link href="/">
-            <a className="block text-center text-lg text-gray-700 text-opacity-60 hover:underline">
-              Linker
-            </a>
-          </Link>
-        </footer>
+      <div className={modal ? "overflow-hidden h-screen" : ""}>
+        {session.data?.user?.id === linker.userId && (
+          <AuthBar status={session.status} />
+        )}
+        <div className="bg-orange-300 min-h-screen h-full w-screen flex flex-col">
+          <main className="pt-20 px-[30rem]">
+            <div className="bg-gray-400 bg-opacity-50 backdrop-blur-md rounded-lg p-5">
+              <div className="h-16 w-16 absolute -top-7 left-1/2 -translate-x-1/2 rounded-full bg-black"></div>
+              <h1 className="text-center text-4xl font-semibold mt-5">
+                {linker.name}
+              </h1>
+              {/* Links */}
+              <LinksList
+                links={links}
+                canEdit={
+                  session.status === "authenticated" &&
+                  linker.userId === session.data.user?.id
+                }
+              />
+              {/* Social Media */}
+              <ul className="flex justify-center gap-3">
+                <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
+                  <a href="https://instagram.com">
+                    <FontAwesomeIcon icon={faInstagram} />
+                  </a>
+                </li>
+                <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
+                  <a href="https://twitter.com">
+                    <FontAwesomeIcon icon={faTwitter} />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </main>
+          <footer className="mt-auto">
+            <Link href="/">
+              <a className="block text-center text-lg text-gray-700 text-opacity-60 hover:underline">
+                Linker
+              </a>
+            </Link>
+          </footer>
+        </div>
       </div>
+      <LinksEditor links={links} />
     </>
   );
 };
