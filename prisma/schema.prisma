@@ -11,10 +11,12 @@ datasource db {
 }
 
 model Linker {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
   slug        String
+  User        User?   @relation(fields: [userId], references: [id])
+  userId      String? @db.ObjectId
 }
 
 // Necessary for Next auth
@@ -52,6 +54,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  linkers       Linker[]
 }
 
 model VerificationToken {

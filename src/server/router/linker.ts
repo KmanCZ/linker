@@ -23,6 +23,7 @@ export const linkerRouter = createRouter()
           name: input.name,
           description: input.description,
           slug: slug(input.name),
+          userId: ctx.session?.user?.id,
         },
       });
       return newLinker;
@@ -32,5 +33,14 @@ export const linkerRouter = createRouter()
     resolve: async ({ ctx }) => {
       const Linkers = await ctx.prisma.linker.findMany({});
       return Linkers;
+    },
+  })
+  .query("getAllLinkersOfUser", {
+    resolve: async ({ ctx }) => {
+      const linkers = await ctx.prisma.linker.findMany({
+        where: { userId: ctx.session?.user?.id },
+      });
+
+      return linkers;
     },
   });
