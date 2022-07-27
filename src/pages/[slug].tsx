@@ -3,12 +3,20 @@ import Head from "next/head";
 import { prisma } from "../server/db/client";
 import AuthBar from "../components/AuthBar";
 import { useSession } from "next-auth/react";
-import { Linker } from "@prisma/client";
+import { Link as LinkModel, Linker } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import LinksList from "@components/LinksList";
+import LinksEditor from "@components/LinksEditor";
 
-const LinkerPage = ({ linker }: { linker: Linker }) => {
+const LinkerPage = ({
+  linker,
+  links,
+}: {
+  linker: Linker;
+  links: LinkModel[];
+}) => {
   const session = useSession();
 
   return (
@@ -30,18 +38,7 @@ const LinkerPage = ({ linker }: { linker: Linker }) => {
               {linker.name}
             </h1>
             {/* Links */}
-            <ul className="flex flex-col gap-1 items-center">
-              <li className="w-full mb-4 text-center rounded-full bg-white hover:bg-gray-200 hover:bg-opacity-60 cursor-pointer text-2xl bg-opacity-60">
-                <a className="block" href="https://google.com">
-                  Link
-                </a>
-              </li>
-              <li className="w-full mb-4 text-center rounded-full bg-white hover:bg-gray-200 hover:bg-opacity-60 cursor-pointer text-2xl bg-opacity-60">
-                <a className="block" href="https://google.com">
-                  Link 2
-                </a>
-              </li>
-            </ul>
+            <LinksList links={links} />
             {/* Social Media */}
             <ul className="flex justify-center gap-3">
               <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
@@ -84,9 +81,12 @@ export const getServerSideProps = async ({
     };
   }
 
+  const links = await prisma.link.findMany({ where: { linkerId: linker.id } });
+
   return {
     props: {
-      linker: linker,
+      linker,
+      links,
     },
   };
 };
