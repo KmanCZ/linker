@@ -10,6 +10,7 @@ export default function NewLinkerModal() {
   const [description, setDescription] = useState<string>("");
   const { mutate } = trpc.useMutation("linker.create", {
     onSuccess: ({ slug }) => {
+      setModal(false);
       Router.push(slug);
     },
   });
