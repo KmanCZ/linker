@@ -7,7 +7,7 @@ export default function AuthBar({
 }) {
   if (status === "authenticated") {
     return (
-      <div className="sticky top-0">
+      <div className="sticky top-0 z-10">
         <section className="flex flex-row justify-between items-center px-2 bg-slate-800">
           <Link href="/">
             <a className="text-white font-bold text-2xl m-2 p-2">Linker</a>

@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { Linker } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
 
 const LinkerPage = ({ linker }: { linker: Linker }) => {
   const session = useSession();
@@ -18,41 +19,52 @@ const LinkerPage = ({ linker }: { linker: Linker }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AuthBar status={session.status} />
-      <main className=" bg-orange-300 min-h-screen h-full w-screen pt-20 px-[30rem]">
-        <div className="bg-gray-400 bg-opacity-50 backdrop-blur-md rounded-lg p-5">
-          <div className="h-16 w-16 absolute -top-7 left-1/2 -translate-x-1/2 rounded-full bg-black"></div>
-          <h1 className="text-center text-4xl font-semibold my-5">
-            {linker.name}
-          </h1>
-          {/* Links */}
-          <ul className="flex flex-col gap-1 items-center">
-            <li className="w-full mb-4 text-center rounded-full bg-white hover:bg-gray-200 hover:bg-opacity-60 cursor-pointer text-2xl bg-opacity-60">
-              <a className="block" href="https://google.com">
-                Link
-              </a>
-            </li>
-            <li className="w-full mb-4 text-center rounded-full bg-white hover:bg-gray-200 hover:bg-opacity-60 cursor-pointer text-2xl bg-opacity-60">
-              <a className="block" href="https://google.com">
-                Link 2
-              </a>
-            </li>
-          </ul>
-          {/* Social Media */}
-          <ul className="flex justify-center gap-3">
-            <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
-              <a href="https://instagram.com">
-                <FontAwesomeIcon icon={faInstagram} />
-              </a>
-            </li>
-            <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
-              <a href="https://twitter.com">
-                <FontAwesomeIcon icon={faTwitter} />
-              </a>
-            </li>
-          </ul>
-        </div>
-      </main>
+      {session.data?.user?.id === linker.userId && (
+        <AuthBar status={session.status} />
+      )}
+      <div className="bg-orange-300 min-h-screen h-full w-screen flex flex-col">
+        <main className="pt-20 px-[30rem]">
+          <div className="bg-gray-400 bg-opacity-50 backdrop-blur-md rounded-lg p-5">
+            <div className="h-16 w-16 absolute -top-7 left-1/2 -translate-x-1/2 rounded-full bg-black"></div>
+            <h1 className="text-center text-4xl font-semibold my-5">
+              {linker.name}
+            </h1>
+            {/* Links */}
+            <ul className="flex flex-col gap-1 items-center">
+              <li className="w-full mb-4 text-center rounded-full bg-white hover:bg-gray-200 hover:bg-opacity-60 cursor-pointer text-2xl bg-opacity-60">
+                <a className="block" href="https://google.com">
+                  Link
+                </a>
+              </li>
+              <li className="w-full mb-4 text-center rounded-full bg-white hover:bg-gray-200 hover:bg-opacity-60 cursor-pointer text-2xl bg-opacity-60">
+                <a className="block" href="https://google.com">
+                  Link 2
+                </a>
+              </li>
+            </ul>
+            {/* Social Media */}
+            <ul className="flex justify-center gap-3">
+              <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
+                <a href="https://instagram.com">
+                  <FontAwesomeIcon icon={faInstagram} />
+                </a>
+              </li>
+              <li className="w-8 hover:text-gray-500 hover:text-opacity-60">
+                <a href="https://twitter.com">
+                  <FontAwesomeIcon icon={faTwitter} />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </main>
+        <footer className="mt-auto">
+          <Link href="/">
+            <a className="block text-center text-lg text-gray-700 text-opacity-60 hover:underline">
+              Linker
+            </a>
+          </Link>
+        </footer>
+      </div>
     </>
   );
 };
