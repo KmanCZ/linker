@@ -2,13 +2,7 @@ import { Link as LinkModel } from "@prisma/client";
 import { useAtom } from "jotai";
 import { modalAtom } from "pages/[slug]";
 
-export default function LinksList({
-  links,
-  canEdit,
-}: {
-  links: LinkModel[];
-  canEdit: boolean;
-}) {
+export default function LinksList({ links }: { links: LinkModel[] }) {
   return (
     <ul className="relative flex flex-col gap-1 items-center my-2">
       {links.map((link) => (
@@ -16,7 +10,6 @@ export default function LinksList({
           {link.name}
         </Link>
       ))}
-      {canEdit && <EditLinksButton areLinks={links.length > 0} />}
     </ul>
   );
 }
