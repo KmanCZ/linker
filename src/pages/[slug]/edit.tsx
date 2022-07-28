@@ -7,6 +7,7 @@ import AuthBar from "@components/AuthBar";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FormEvent } from "react";
 
 const EditLinkerPage = ({ slug }: { slug: string }) => {
   const { data } = trpc.useQuery(["linker.getLinker", { slug }]);
@@ -65,5 +66,27 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     },
   };
 };
+
+function SettingsBlock({
+  children,
+  submitHandler,
+}: {
+  children: JSX.Element[];
+  submitHandler: () => void;
+}) {
+  function submit(e: FormEvent) {
+    e.preventDefault();
+    submitHandler();
+  }
+
+  return (
+    <form
+      onSubmit={submit}
+      className="bg-gray-300 mx-[30rem] mt-5 rounded-lg p-3 flex flex-col gap-2"
+    >
+      {children}
+    </form>
+  );
+}
 
 export default EditLinkerPage;
