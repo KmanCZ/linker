@@ -37,4 +37,21 @@ export const linkerRouter = createRouter()
 
       return linkers;
     },
+  })
+  .query("getLinker", {
+    input: z.object({
+      slug: z.string(),
+    }),
+    resolve: async ({ input, ctx }) => {
+      const linker = await ctx.prisma.linker.findUnique({
+        where: { slug: input.slug },
+      });
+      if (!linker) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+      const links = await ctx.prisma.link.findMany({
+        where: { linkerId: linker.id },
+      });
+      return { linker, links };
+    },
   });
