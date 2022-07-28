@@ -5,10 +5,10 @@ import AuthBar from "../../components/AuthBar";
 import { getSession, useSession } from "next-auth/react";
 import { Link as LinkModel, Linker } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import LinksList from "@components/LinksList";
+import SettingsLink from "@components/SettingsLink";
 
 const LinkerPage = ({
   linker,
@@ -68,18 +68,6 @@ const LinkerPage = ({
     </>
   );
 };
-
-function SettingsLink({ slug }: { slug: string }) {
-  return (
-    <div className="w-8 right-5 absolute text-gray-200 opacity-40 hover:opacity-80">
-      <Link href={slug + "/edit"}>
-        <a>
-          <FontAwesomeIcon icon={faGear} />
-        </a>
-      </Link>
-    </div>
-  );
-}
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const slug = ctx.params?.slug as string;
